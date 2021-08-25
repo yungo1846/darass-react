@@ -1,0 +1,21 @@
+{
+  "name": "darass-react",
+  "version": "1.0.0",
+  "main": "src/Darass/index.js",
+  "repository": "https://github.com/yungo1846/darass-react.git",
+  "contributors": [
+    "yungo1846 <yungo1468@naver.com>",
+    "Zereight <fullstackmachinelearning@gmail.com>"
+  ],
+  "keywords": [
+    "darass",
+    "react",
+    "reply",
+    "reply-module",
+    "reply-system"
+  ],
+  "files": [
+    "src"
+  ],
+  "license": "MIT"
+}
