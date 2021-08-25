@@ -1,6 +1,6 @@
 {
   "name": "darass-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/Darass/index.js",
   "repository": "https://github.com/yungo1846/darass-react.git",
   "contributors": [
@@ -14,8 +14,10 @@
     "reply-module",
     "reply-system"
   ],
+  "types": "types/index.d.ts",
   "files": [
-    "src"
+    "src",
+    "types"
   ],
   "license": "MIT"
 }
