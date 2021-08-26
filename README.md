@@ -19,11 +19,9 @@ yarn add darass-react
 ## Usage
 
 ```jsx
-import Darass from 'darass-react';
+import Darass from "darass-react";
 
-<Darass
-    projectKey={your project key}
-/>
+<Darass projectKey="your project key" />;
 ```
 
 Darass component will show reply-module.
