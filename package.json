@@ -1,7 +1,7 @@
 {
   "name": "darass-react",
   "version": "1.0.2",
-  "main": "src/Darass/index.jsx",
+  "main": "lib/Darass/index.js",
   "repository": "https://github.com/yungo1846/darass-react.git",
   "contributors": [
     "yungo1846 <yungo1468@naver.com>",
@@ -16,12 +16,28 @@
   ],
   "types": "types/index.d.ts",
   "files": [
-    "src",
+    "dist",
+    "lib",
     "types"
   ],
+  "scripts": {
+    "build": "webpack",
+    "prepublish": "yarn run build"
+  },
   "peerDependencies": {
     "react": "^15.6.1 || ^16.0.0 || ^17.0.0",
     "react-dom": "^15.6.1 || ^16.0.0 || ^17.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
+  }
 }
