@@ -67,12 +67,12 @@ export default class Darass extends React.Component {
         hideElement(this.$modal.current);
         return;
       }
-
-      window.addEventListener("click", this.onPostParentClickEventToIframe);
-      window.addEventListener("message", this.onMessage);
     };
 
     this.onMessage = _onMessage.bind(this);
+
+    window.addEventListener("click", this.onPostParentClickEventToIframe);
+    window.addEventListener("message", this.onMessage);
   }
 
   componentWillUnmount() {
@@ -82,7 +82,7 @@ export default class Darass extends React.Component {
 
   render() {
     return (
-      <div id="darass">
+      <div id="darass" style={{ width: "100%" }}>
         <iframe
           title="darass-reply-module"
           src={getReplyModuleURL(this.projectKey)}

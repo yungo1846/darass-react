@@ -4,7 +4,7 @@ const config = {
   entry: "./src/Darass/index.jsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: `index.jsx`,
+    filename: `index.js`,
   },
   module: {
     rules: [
