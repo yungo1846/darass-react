@@ -1,10 +1,16 @@
 import React from "react";
-import { hideElement, postParentClickEventToIframe, resizeElementHeight, showElement } from "./common.js";
+import {
+  hideElement,
+  postParentClickEventToIframe,
+  resizeElementHeight,
+  showElement,
+} from "./common.js";
 import { POST_MESSAGE_TYPE } from "./constants.js";
 import { getModalURL, getReplyModuleURL } from "./getURL.js";
 import { IFRAME_STYLE } from "./style.js";
+import loadable from "@loadable/component";
 
-export default class Darass extends React.Component {
+class Darass extends React.Component {
   constructor(props) {
     super(props);
     this.projectKey = props.projectKey;
@@ -22,24 +28,34 @@ export default class Darass extends React.Component {
       postParentClickEventToIframe(this.$replyModule.current);
     };
 
-    this.onPostParentClickEventToIframe = _onPostParentClickEventToIframe.bind(this);
+    this.onPostParentClickEventToIframe =
+      _onPostParentClickEventToIframe.bind(this);
 
     const _onMessage = ({ data: { type, data } }) => {
       if (!type) return;
 
       if (type === POST_MESSAGE_TYPE.SCROLL_HEIGHT) {
-        resizeElementHeight({ element: this.$replyModule.current, height: data });
+        resizeElementHeight({
+          element: this.$replyModule.current,
+          height: data,
+        });
         return;
       }
 
       if (type === POST_MESSAGE_TYPE.OPEN_LIKING_USERS_MODAL) {
-        this.$modal.current.contentWindow.postMessage({ type: POST_MESSAGE_TYPE.OPEN_LIKING_USERS_MODAL, data }, "*");
+        this.$modal.current.contentWindow.postMessage(
+          { type: POST_MESSAGE_TYPE.OPEN_LIKING_USERS_MODAL, data },
+          "*"
+        );
         showElement(this.$modal.current);
         return;
       }
 
       if (type === POST_MESSAGE_TYPE.CLOSE_MODAL) {
-        this.$replyModule.current.contentWindow.postMessage({ type: POST_MESSAGE_TYPE.CLOSE_MODAL }, "*");
+        this.$replyModule.current.contentWindow.postMessage(
+          { type: POST_MESSAGE_TYPE.CLOSE_MODAL },
+          "*"
+        );
         hideElement(this.$modal.current);
         return;
       }
@@ -51,19 +67,28 @@ export default class Darass extends React.Component {
       }
 
       if (type === POST_MESSAGE_TYPE.OPEN_CONFIRM) {
-        this.$modal.current.contentWindow.postMessage({ type: POST_MESSAGE_TYPE.OPEN_CONFIRM, data }, "*");
+        this.$modal.current.contentWindow.postMessage(
+          { type: POST_MESSAGE_TYPE.OPEN_CONFIRM, data },
+          "*"
+        );
         showElement(this.$modal.current);
         return;
       }
 
       if (type === POST_MESSAGE_TYPE.CLOSE_CONFIRM) {
-        this.$replyModule.current.contentWindow.postMessage({ type: POST_MESSAGE_TYPE.CLOSE_CONFIRM }, "*");
+        this.$replyModule.current.contentWindow.postMessage(
+          { type: POST_MESSAGE_TYPE.CLOSE_CONFIRM },
+          "*"
+        );
         hideElement(this.$modal.current);
         return;
       }
 
       if (type === POST_MESSAGE_TYPE.CONFIRM_OK) {
-        this.$replyModule.current.contentWindow.postMessage({ type: POST_MESSAGE_TYPE.CONFIRM_OK, data }, "*");
+        this.$replyModule.current.contentWindow.postMessage(
+          { type: POST_MESSAGE_TYPE.CONFIRM_OK, data },
+          "*"
+        );
         hideElement(this.$modal.current);
         return;
       }
@@ -81,16 +106,22 @@ export default class Darass extends React.Component {
   }
 
   render() {
+    const isSSR = typeof window === "undefined";
+
     return (
       <div id="darass" style={{ width: "100%" }}>
-        <iframe
-          title="darass-reply-module"
-          src={getReplyModuleURL(this.projectKey)}
-          ref={this.$replyModule}
-          scrolling="no"
-        />
+        {!isSSR && (
+          <iframe
+            title="darass-reply-module"
+            src={getReplyModuleURL(this.projectKey)}
+            ref={this.$replyModule}
+            scrolling="no"
+          />
+        )}
         <iframe title="darass-modal" src={getModalURL()} ref={this.$modal} />
       </div>
     );
   }
 }
+
+export default loadable(() => Darass);
