@@ -1,6 +1,6 @@
 {
   "name": "darass-react",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "main": "lib/Darass/index.js",
   "repository": "https://github.com/yungo1846/darass-react.git",
   "contributors": [

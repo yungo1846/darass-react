@@ -15,7 +15,10 @@ export default class Darass extends React.Component {
   componentDidMount() {
     if (!(this.$replyModule.current && this.$modal.current)) return;
 
+    this.$replyModule.current.src = getReplyModuleURL(this.projectKey);
     this.$replyModule.current.style = IFRAME_STYLE.REPLY_MODULE;
+
+    this.$modal.current.src = getModalURL();
     this.$modal.current.style = IFRAME_STYLE.MODAL;
 
     const _onPostParentClickEventToIframe = () => {
@@ -28,7 +31,10 @@ export default class Darass extends React.Component {
       if (!type) return;
 
       if (type === POST_MESSAGE_TYPE.SCROLL_HEIGHT) {
-        resizeElementHeight({ element: this.$replyModule.current, height: data });
+        resizeElementHeight({
+          element: this.$replyModule.current,
+          height: data,
+        });
         return;
       }
 
@@ -83,13 +89,8 @@ export default class Darass extends React.Component {
   render() {
     return (
       <div id="darass" style={{ width: "100%" }}>
-        <iframe
-          title="darass-reply-module"
-          src={getReplyModuleURL(this.projectKey)}
-          ref={this.$replyModule}
-          scrolling="no"
-        />
-        <iframe title="darass-modal" src={getModalURL()} ref={this.$modal} />
+        <iframe title="darass-reply-module" ref={this.$replyModule} style={{ display: "none" }} scrolling="no" />
+        <iframe title="darass-modal" ref={this.$modal} style={{ display: "none" }} />
       </div>
     );
   }
