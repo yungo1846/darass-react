@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { init } from "../init";
 
 interface Props {
@@ -7,9 +7,20 @@ interface Props {
 
 const Darass = ({ projectKey }: Props) => {
   const isSSR = typeof window === "undefined";
+  const eventRef = useRef();
 
   useEffect(() => {
-    if (!isSSR) init();
+    if (isSSR) return;
+    const onMessageForRequestPort = init();
+
+    if (!onMessageForRequestPort) return;
+    window.addEventListener("message", onMessageForRequestPort);
+
+    return () => {
+      document.querySelector("#darass-reply-comment-area")?.remove();
+      document.querySelector("#darass-reply-comment-modal")?.remove();
+      window.removeEventListener("message", onMessageForRequestPort);
+    };
   }, [isSSR]);
 
   if (isSSR) {

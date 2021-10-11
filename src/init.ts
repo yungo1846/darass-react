@@ -194,7 +194,5 @@ export const init = () => {
     }
   };
 
-  window.addEventListener("message", onMessageForRequestPort);
+  return onMessageForRequestPort;
 };
-
-window.addEventListener("load", init);
