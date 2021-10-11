@@ -1,10 +1,11 @@
 const path = require("path");
 
 const config = {
-  entry: "./src/Darass/index.jsx",
+  entry: "./src/components/Darass.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: `index.js`,
+    filename: "index.js",
+    clean: true,
   },
   module: {
     rules: [
@@ -13,6 +14,19 @@ const config = {
         use: [
           {
             loader: "babel-loader",
+            options: {
+              presets: [
+                "@babel/preset-env",
+                [
+                  "@babel/preset-react",
+                  {
+                    runtime: "automatic",
+                  },
+                ],
+                "@babel/preset-typescript",
+              ],
+              plugins: ["@babel/transform-runtime"],
+            },
           },
         ],
         exclude: /node_modules/,
