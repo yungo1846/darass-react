@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { init } from "../init";
 
 interface Props {
   projectKey: string;
+  darkMode: boolean;
 }
 
-const Darass = ({ projectKey }: Props) => {
+const Darass = ({ projectKey, darkMode }: Props) => {
   const isSSR = typeof window === "undefined";
-  const eventRef = useRef();
 
   useEffect(() => {
     if (isSSR) return;
@@ -27,7 +27,13 @@ const Darass = ({ projectKey }: Props) => {
     return null;
   }
 
-  return <div id="darass" data-projectkey={projectKey}></div>;
+  return (
+    <div
+      id="darass"
+      data-project-key={projectKey}
+      data-dark-mode={darkMode}
+    ></div>
+  );
 };
 
 export default Darass;

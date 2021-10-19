@@ -31,15 +31,17 @@ export const init = () => {
     return;
   }
 
-  const projectKey = $darass.dataset.projectkey;
+  const projectKey = $darass.dataset.projectKey;
   if (!projectKey) {
     alert("유효하지 않은 프로젝트 키입니다. 프로젝트키를 확인해주세요.");
 
     return;
   }
 
+  const isDarkModePage = $darass.dataset.darkMode === "true" ? true : false;
+
   const $replyModuleIframe = createIframe(
-    getReplyModuleURL(projectKey),
+    getReplyModuleURL(projectKey, isDarkModePage),
     IFRAME_STYLE.REPLY_MODULE
   );
   $replyModuleIframe.id = "darass-reply-comment-area";
