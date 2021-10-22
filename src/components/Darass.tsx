@@ -5,9 +5,19 @@ interface Props {
   projectKey: string;
   darkMode: boolean;
   primaryColor: string;
+  isShowSortOption: boolean;
+  isAllowSocialLogin: boolean;
+  isShowLogo: boolean;
 }
 
-const Darass = ({ projectKey, darkMode, primaryColor }: Props) => {
+const Darass = ({
+  projectKey,
+  darkMode,
+  primaryColor,
+  isShowSortOption,
+  isAllowSocialLogin,
+  isShowLogo
+}: Props) => {
   const isSSR = typeof window === "undefined";
 
   useEffect(() => {
@@ -34,6 +44,9 @@ const Darass = ({ projectKey, darkMode, primaryColor }: Props) => {
       data-project-key={projectKey}
       data-dark-mode={darkMode}
       data-primary-color={primaryColor}
+      data-show-sort-option={isShowSortOption}
+      data-allow-social-login={isAllowSocialLogin}
+      data-show-logo={isShowLogo}
     ></div>
   );
 };

@@ -6,14 +6,14 @@ import {
   hideElement,
   resizeElementHeight,
   showElement,
-  unBlockScroll,
+  unBlockScroll
 } from "./utils/dom";
 import { getModalUrl, getReplyModuleURL } from "./utils/getURL";
 
 export const init = () => {
   const messageChannel = {
     replyModule: new MessageChannel(),
-    replyModal: new MessageChannel(),
+    replyModal: new MessageChannel()
   };
 
   const $darass: HTMLElement | null = document.querySelector("#darass");
@@ -38,10 +38,27 @@ export const init = () => {
     return;
   }
 
-  const isDarkModePage = $darass.dataset.darkMode === "true" ? true : false;
+  const isDarkModePage = $darass.dataset.darkMode === "false" ? false : true;
+
+  const primaryColor = $darass.dataset.primaryColor || "#0BC586";
+
+  const isShowSortOption =
+    $darass.dataset.showSortOption === "false" ? false : true;
+
+  const isAllowSocialLogin =
+    $darass.dataset.allowSocialLogin === "false" ? false : true;
+
+  const isShowLogo = $darass.dataset.showLogo === "false" ? false : true;
 
   const $replyModuleIframe = createIframe(
-    getReplyModuleURL(projectKey, isDarkModePage),
+    getReplyModuleURL({
+      projectKey,
+      isDarkModePage,
+      primaryColor,
+      isShowSortOption,
+      isAllowSocialLogin,
+      isShowLogo
+    }),
     IFRAME_STYLE.REPLY_MODULE
   );
   $replyModuleIframe.id = "darass-reply-comment-area";
@@ -57,7 +74,7 @@ export const init = () => {
   const postReplyModulePort = () => {
     $replyModuleIframe.contentWindow?.postMessage(
       {
-        type: POST_MESSAGE_TYPE.INIT_MESSAGE_CHANNEL.REPLY_MODULE.RESPONSE_PORT,
+        type: POST_MESSAGE_TYPE.INIT_MESSAGE_CHANNEL.REPLY_MODULE.RESPONSE_PORT
       },
       "*",
       [messageChannel.replyModule.port2]
@@ -67,7 +84,7 @@ export const init = () => {
   const postReplyModalPort = () => {
     $modalIframe.contentWindow?.postMessage(
       {
-        type: POST_MESSAGE_TYPE.INIT_MESSAGE_CHANNEL.REPLY_MODAL.RESPONSE_PORT,
+        type: POST_MESSAGE_TYPE.INIT_MESSAGE_CHANNEL.REPLY_MODAL.RESPONSE_PORT
       },
       "*",
       [messageChannel.replyModal.port2]
@@ -75,13 +92,13 @@ export const init = () => {
   };
 
   const onMessageFromReplyModuleIFrame = ({
-    data: { type, data },
+    data: { type, data }
   }: MessageEvent) => {
     const ACTION_TABLE = {
       [POST_MESSAGE_TYPE.MODAL.OPEN.ALERT]: () => {
         messageChannel.replyModal.port1.postMessage({
           type: POST_MESSAGE_TYPE.MODAL.OPEN.ALERT,
-          data,
+          data
         });
         showElement($modalIframe);
         blockScroll();
@@ -89,7 +106,7 @@ export const init = () => {
       [POST_MESSAGE_TYPE.MODAL.OPEN.LIKING_USERS]: () => {
         messageChannel.replyModal.port1.postMessage({
           type: POST_MESSAGE_TYPE.MODAL.OPEN.LIKING_USERS,
-          data,
+          data
         });
         showElement($modalIframe);
         blockScroll();
@@ -97,7 +114,7 @@ export const init = () => {
       [POST_MESSAGE_TYPE.MODAL.OPEN.ALARM]: () => {
         messageChannel.replyModal.port1.postMessage({
           type: POST_MESSAGE_TYPE.MODAL.OPEN.ALARM,
-          data,
+          data
         });
         showElement($modalIframe);
         blockScroll();
@@ -105,13 +122,13 @@ export const init = () => {
       [POST_MESSAGE_TYPE.MODAL.OPEN.CONFIRM]: () => {
         messageChannel.replyModal.port1.postMessage({
           type: POST_MESSAGE_TYPE.MODAL.OPEN.CONFIRM,
-          data,
+          data
         });
         showElement($modalIframe);
         blockScroll();
       },
       [POST_MESSAGE_TYPE.SCROLL_HEIGHT]: () =>
-        resizeElementHeight($replyModuleIframe, data),
+        resizeElementHeight($replyModuleIframe, data)
     } as const;
 
     if (!Object.keys(ACTION_TABLE).includes(type)) return;
@@ -119,40 +136,40 @@ export const init = () => {
   };
 
   const onMessageFromReplyModalIFrame = ({
-    data: { type, data },
+    data: { type, data }
   }: MessageEvent) => {
     const ACTION_TABLE = {
       [POST_MESSAGE_TYPE.MODAL.CLOSE.ALERT]: () => {
         messageChannel.replyModule.port1.postMessage({
-          type: POST_MESSAGE_TYPE.MODAL.CLOSE.ALERT,
+          type: POST_MESSAGE_TYPE.MODAL.CLOSE.ALERT
         });
         hideElement($modalIframe);
         unBlockScroll();
       },
       [POST_MESSAGE_TYPE.MODAL.CLOSE.ALARM]: () => {
         messageChannel.replyModule.port1.postMessage({
-          type: POST_MESSAGE_TYPE.MODAL.CLOSE.ALARM,
+          type: POST_MESSAGE_TYPE.MODAL.CLOSE.ALARM
         });
         hideElement($modalIframe);
         unBlockScroll();
       },
       [POST_MESSAGE_TYPE.MODAL.CLOSE.CONFIRM]: () => {
         messageChannel.replyModule.port1.postMessage({
-          type: POST_MESSAGE_TYPE.MODAL.CLOSE.CONFIRM,
+          type: POST_MESSAGE_TYPE.MODAL.CLOSE.CONFIRM
         });
         hideElement($modalIframe);
         unBlockScroll();
       },
       [POST_MESSAGE_TYPE.MODAL.CLOSE.LIKING_USERS]: () => {
         messageChannel.replyModule.port1.postMessage({
-          type: POST_MESSAGE_TYPE.MODAL.CLOSE.ALARM,
+          type: POST_MESSAGE_TYPE.MODAL.CLOSE.ALARM
         });
         hideElement($modalIframe);
         unBlockScroll();
       },
       [POST_MESSAGE_TYPE.CONFIRM_NO]: () => {
         messageChannel.replyModule.port1.postMessage({
-          type: POST_MESSAGE_TYPE.CONFIRM_NO,
+          type: POST_MESSAGE_TYPE.CONFIRM_NO
         });
         hideElement($modalIframe);
         unBlockScroll();
@@ -160,11 +177,11 @@ export const init = () => {
       [POST_MESSAGE_TYPE.CONFIRM_OK]: () => {
         messageChannel.replyModule.port1.postMessage({
           type: POST_MESSAGE_TYPE.CONFIRM_OK,
-          data,
+          data
         });
         hideElement($modalIframe);
         unBlockScroll();
-      },
+      }
     };
 
     if (!Object.keys(ACTION_TABLE).includes(type)) return;
