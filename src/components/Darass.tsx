@@ -4,9 +4,10 @@ import { init } from "../init";
 interface Props {
   projectKey: string;
   darkMode: boolean;
+  primaryColor: string;
 }
 
-const Darass = ({ projectKey, darkMode }: Props) => {
+const Darass = ({ projectKey, darkMode, primaryColor }: Props) => {
   const isSSR = typeof window === "undefined";
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const Darass = ({ projectKey, darkMode }: Props) => {
       id="darass"
       data-project-key={projectKey}
       data-dark-mode={darkMode}
+      data-primary-color={primaryColor}
     ></div>
   );
 };
