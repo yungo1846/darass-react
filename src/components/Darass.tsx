@@ -41,12 +41,12 @@ const Darass = ({
   return (
     <div
       id="darass"
-      data-project-key={projectKey}
-      data-dark-mode={darkMode}
-      data-primary-color={primaryColor}
-      data-show-sort-option={isShowSortOption}
-      data-allow-social-login={isAllowSocialLogin}
-      data-show-logo={isShowLogo}
+      data-project-key={`${projectKey}`}
+      data-dark-mode={`${darkMode}`}
+      data-primary-color={`${primaryColor}`}
+      data-show-sort-option={`${isShowSortOption}`}
+      data-allow-social-login={`${isAllowSocialLogin}`}
+      data-show-logo={`${isShowLogo}`}
     ></div>
   );
 };
