@@ -64,7 +64,10 @@ export const init = () => {
   $replyModuleIframe.id = "darass-reply-comment-area";
   $replyModuleIframe.setAttribute("scrolling", "no");
 
-  const $modalIframe = createIframe(getModalUrl(), IFRAME_STYLE.MODAL);
+  const $modalIframe = createIframe(
+    getModalUrl({ primaryColor }),
+    IFRAME_STYLE.MODAL
+  );
 
   $modalIframe.id = "darass-reply-comment-modal";
 
