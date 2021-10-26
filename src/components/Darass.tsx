@@ -3,20 +3,20 @@ import { init } from "../init";
 
 interface Props {
   projectKey: string;
-  darkMode: boolean;
-  primaryColor: string;
-  isShowSortOption: boolean;
-  isAllowSocialLogin: boolean;
-  isShowLogo: boolean;
+  darkMode?: boolean;
+  primaryColor?: string;
+  isShowSortOption?: boolean;
+  isAllowSocialLogin?: boolean;
+  isShowLogo?: boolean;
 }
 
 const Darass = ({
   projectKey,
-  darkMode,
-  primaryColor,
-  isShowSortOption,
-  isAllowSocialLogin,
-  isShowLogo
+  darkMode = false,
+  primaryColor = "#0BC586",
+  isShowSortOption = true,
+  isAllowSocialLogin = true,
+  isShowLogo = true
 }: Props) => {
   const isSSR = typeof window === "undefined";
 
