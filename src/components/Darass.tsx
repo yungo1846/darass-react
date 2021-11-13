@@ -32,7 +32,15 @@ const Darass = ({
       document.querySelector("#darass-reply-comment-modal")?.remove();
       window.removeEventListener("message", onMessageForRequestPort);
     };
-  }, [isSSR]);
+  }, [
+    isSSR,
+    projectKey,
+    darkMode,
+    primaryColor,
+    isShowSortOption,
+    isAllowSocialLogin,
+    isShowLogo
+  ]);
 
   if (isSSR) {
     return null;
@@ -47,7 +55,7 @@ const Darass = ({
       data-show-sort-option={`${isShowSortOption}`}
       data-allow-social-login={`${isAllowSocialLogin}`}
       data-show-logo={`${isShowLogo}`}
-    ></div>
+    />
   );
 };
 

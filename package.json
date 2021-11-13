@@ -1,6 +1,6 @@
 {
   "name": "darass-react",
-  "version": "1.2.10",
+  "version": "1.2.14",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": "https://github.com/yungo1846/darass-react.git",
