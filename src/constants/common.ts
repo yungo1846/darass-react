@@ -1,6 +1,6 @@
 const LOCALHOST_END_POINT = "https://localhost:3000";
-const DEVELOP_END_POINT = "https://dev-reply-module.darass.co.kr";
-const PRODUCTION_END_POINT = "https://reply-module.darass.co.kr";
+const DEVELOP_END_POINT = "https://deploy-script.darass.co.kr";
+const PRODUCTION_END_POINT = "https://deploy-script.darass.co.kr";
 
 const END_POINT_TABLE = {
   localhost: LOCALHOST_END_POINT,
